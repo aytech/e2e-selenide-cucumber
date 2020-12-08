@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+group 'com.idm'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'TestRunner.TestRunner'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // testCompile group: 'junit', name: 'junit', version: '4.12'
+    // Cucumber
+    implementation 'io.cucumber:cucumber-core:6.8.1'
+    implementation 'io.cucumber:cucumber-html:0.2.7'
+    implementation 'io.cucumber:cucumber-java:6.8.1'
+    implementation 'io.cucumber:cucumber-junit:6.8.1'
+    implementation 'io.cucumber:cucumber-jvm-deps:1.0.6'
+    implementation 'net.masterthought:cucumber-reporting:5.3.1'
+    implementation 'io.cucumber:gherkin:15.0.2'
+    implementation 'junit:junit:4.13.1'
+}
